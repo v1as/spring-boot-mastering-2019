@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Optional.ofNullable;
+
 @Log
 @Service
 public class MessageService {
@@ -15,11 +17,9 @@ public class MessageService {
     private Map<Integer, MessageSender> sendersMap = new HashMap<>();
 
     public void send(MessageDto message) {
-        MessageSender messageSender = sendersMap.get(message.getType());
-        if (messageSender == null) {
-            throw new UnsupportedOperationException("This message type is not supported");
-        }
-        messageSender.send(message);
+        ofNullable(sendersMap.get(message.getType()))
+                .orElseThrow(() -> new UnsupportedOperationException("This message type is not supported"))
+                .send(message);
     }
 
     public void registerSender(MessageSender messageSender) {
