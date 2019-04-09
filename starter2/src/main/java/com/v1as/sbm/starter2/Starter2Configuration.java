@@ -22,6 +22,7 @@ public class Starter2Configuration {
     }
 
     @Bean
+    @ConditionalOnWindows
     @ConditionalOnProperty("demo.dba-emails")
     NotificationService getNotificationService() {
         return new NotificationService();
