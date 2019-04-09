@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.v1as.sbm.starter2.Starter2Configuration
